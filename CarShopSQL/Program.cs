@@ -58,10 +58,8 @@ namespace CarShopSQL
         {
             Console.Clear();
 
-            //string carFile = @"C:\Users\nbarkus\Desktop\Cars.csv";
             var carsShop = new Cars();
             StringBuilder carList = new StringBuilder();
-
 
             Console.Write("Enter a make of a car: ");
             carsShop.Make = (Console.ReadLine());
@@ -109,7 +107,7 @@ namespace CarShopSQL
             carsShop.Comm = GetCommission(carsShop.Price);
             try
             {
-                string totalComm = string.Format("{0:C}" + ",", carsShop.Comm);
+                string totalComm = string.Format("{0:C}", carsShop.Comm);
                 carList.Append(totalComm);
             }
             catch (FormatException)
@@ -120,7 +118,7 @@ namespace CarShopSQL
             carsShop.netValue = GetNetValue(carsShop.Price, carsShop.Comm);
             try
             {
-                string totalNetValue = string.Format("{0:C}" + "\n", carsShop.netValue);
+                string totalNetValue = string.Format("{0:C}", carsShop.netValue);
                 carList.Append(totalNetValue);
             }
             catch (FormatException)
@@ -130,47 +128,15 @@ namespace CarShopSQL
 
             Console.WriteLine("The following will be added to inventory: ");
             Console.WriteLine(carList);
-            //File.AppendAllText(carFile, carList.ToString());
             DataAccess db = new DataAccess();
 
-            db.InsertCar(carsShop.Make, carsShop.Model, carsShop.Colour, carsShop.Price, carsShop.Comm, carsShop.netValue);
+            db.InsertCar(carsShop);
 
             Console.Write("Press Any Key to Continue");
             Console.ReadLine();
 
 
         }
-
-
-
-
-        //private static void ViewInventory()
-        //{
-        //    Console.Clear();
-        //    try
-        //    {
-        //        string carFile = @"C:\Users\nbarkus\Desktop\Cars.csv";
-        //        string fileText = File.ReadAllText(carFile);
-        //        Console.WriteLine(fileText);
-        //        Console.Write("Press Any Key to Return to Main Menu");
-        //        Console.ReadLine();
-        //    }
-        //    catch (DirectoryNotFoundException)
-        //    {
-        //        Console.WriteLine(@"Please ensure file is saved in C:\Users\nbarkus\Desktop");
-        //        Console.ReadLine();
-        //    }
-        //    catch (FileNotFoundException)
-        //    {
-        //        Console.WriteLine("Please ensure file is named Cars.csv");
-        //        Console.ReadLine();
-        //    }
-        //    catch (IOException)
-        //    {
-        //        Console.WriteLine("Please close Excel file");
-        //        Console.ReadLine();
-        //    }
-        //}
         private static double GetCommission(double value)
 
         {
